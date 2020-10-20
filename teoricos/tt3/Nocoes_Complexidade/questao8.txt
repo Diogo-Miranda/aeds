@@ -1,0 +1,8 @@
+int i = 0, b = 10;
+
+while (i < 3) {
+	i++;
+	b--;
+}
+
+Como i começa de 0 e irá incrementar até 2 na instrução While, irão acontecer 3 subtraçẽos... i = 0; i incrementado de 1 em 1; n = 3.

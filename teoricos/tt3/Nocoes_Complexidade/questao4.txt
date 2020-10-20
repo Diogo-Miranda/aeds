@@ -1,0 +1,11 @@
+...
+if(a + 5) < b + 3) {
+	i++;
+	++b;
+	a += 3; //Pior caso...
+} else {
+	j++;  //Melhor caso...
+}
+
+Pior caso = 5 adições
+Melhor caso = 3 adições

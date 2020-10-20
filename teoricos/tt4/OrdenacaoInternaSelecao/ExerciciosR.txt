@@ -1,0 +1,16 @@
+	______________________ 
+	| Diogo Aruajo Miranda|
+	| Matricula : 705657  |
+	|_____________________|
+	
+Exercicio Resolvido (1)
+
+Serão realizadas ao todo (n-(i+1)) comparações entre o array, ou seja
+n-i-1 comparações 
+
+Com o array do tamanho 6, com i variando de 1 em 1 até menor que n-1 (5)
+i = 0 : 6-0-1 = 5 vezes
+i = 1 : 6-1-1 = 4 vezes
+i = 2 : 6-2-1 = 3 vezes
+i = 3 : 6-3-1 = 2 vezes
+i = 4 : 6-4-1 = 1 vezes 

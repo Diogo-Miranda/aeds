@@ -1,0 +1,409 @@
+1)============================================================================================
+2⁰ = 1;	2¹ = 2;	2² = 4;	2³ = 8;
+2⁴ = 16;	2⁵ = 32;	2⁶ = 64;	2⁷ = 128;
+2⁸ = 256;	2⁹ = 512;	2¹⁰ = 1024;	2¹¹ = 2048;
+
+2)============================================================================================
+lg(2048) = 11;		lg(1024) = 10;		lg(512) = 9;
+lg(256)  = 8;		lg(128)  = 7;		lg(64)  = 6;
+lg(32)	 = 5;		lg(16)	 =  4;		lg(8)   = 3;
+lg(4)	 = 2;		lg(2)    =  1;		lg(1)	= 0;
+
+3)============================================================================================
+teto(4,01) = 5;	piso(4,01)   = 4;	teto(4,99)    = 5;
+piso(4.99) = 4;	teto(lg(16)) = 4;	teto(lg(16))  = 4;
+lg(17)     = 4.08;     teto(lg(17)) = 5;	piso(lg(17))  = 4;
+lg(15)     = 3.9;      teto(lg(15)) = 4; 	pisto(lg(15)) = 3;
+
+4)============================================================================================
+...
+if(a + 5) < b + 3) {
+	i++;
+	++b;
+	a += 3; //Pior caso...
+} else {
+	j++;  //Melhor caso...
+}
+
+Pior caso = 5 adições
+Melhor caso = 3 adições
+
+5)============================================================================================
+...
+if (a+5<b+3 || c+1 < d+3) {
+	i++;
+	++b;
+	a += 3;       // Pior caso
+} else {
+	j++; // Melhor caso
+}
+
+Melhor caso: se a primeira condição for verdadeira... 3 adições
+Pior caso: se a primeira condição for falsa e entrar na condição if... 7 adições
+
+6)============================================================================================
+...
+for (int i = 0; i < 4; i++){
+	a--;
+}
+
+O código irá executar 4 subtrações, pois i varia de 0 à 3 - i começa de 0 e vai até n (4)
+
+
+7)============================================================================================
+...
+for (int i = 0; i < n; i++) {
+	a--;
+	b--;
+}
+
+i começa de 0 e vai até n, e dentro da repetição for ocorrem duas subtrações... Sendo assim o número de subtrações será 2n
+
+8)============================================================================================
+int i = 0, b = 10;
+
+while (i < 3) {
+	i++;
+	b--;
+}
+
+Como i começa de 0 e irá incrementar até 2 na instrução While, irão acontecer 3 subtraçẽos... i = 0; i incrementado de 1 em 1; n = 3.
+
+9)============================================================================================
+...
+for (int i = 3; i < n; i++) {
+	a--;
+}
+
+O código irá realizar n-3 subtrações, pois i irá variar de 3 até n
+
+10)============================================================================================
+int i = 10;
+
+while (i >= 7) {
+	i--;
+}
+
+i começa em 10 e enquanto for maior ou igual a 7 irá decrementar de 1 em 1... portanto irá variar de 10 - 7 = 3 unidade e será executava também a repetição de quanto é igual a 7:
+(a - n) + 1;
+a : 10;
+n : 7;
+(10 - 7) + 1 = 4 subtrações
+
+11)============================================================================================
+...
+for (int i =5; i >= 2; i--) {
+	a--;
+}
+
+i começa de 5 e equanto for maior ou igual a 2 irá decrementar em 1 a variável i e uma a variável 'a' dentro do laço de repetição, portanto:
+((a - n) + 1)*2;
+sendo: 
+a : 5;
+n : 2;
+
+((5 - 2) + 1)*2 = 8 subtrações 
+
+i = 5;  a-- i--;
+i = 4;  a-- i--;
+i = 3;  a-- i--;
+i = 2;  a-- i--;
+i = 1;  (parar)
+
+8 subtrações...
+
+12)============================================================================================
+int a = 10;
+
+for (int i = 0; i < 3; i++) {
+	for(int j = 0; j < 2; j++) {
+		a--;
+	}
+}
+
+como são 2 laços de repetição:
+i variando de 0 até 3
+j variando de 0 até 2
+e uma variável decrementando 1 vez, teremos:
+3x2x1 subtrações = 6 subtrações
+
+13)============================================================================================
+...
+for (int i = 0; i < n; i++) {
+	for (int j = 0; j < n; j++) {
+		a--;
+	}
+}
+
+Existem 2 estruturas de repetição:
+i incrementado de 1 em 1, n vezes
+j incrementado de 1 em 1, n vezes
+E existem 1 subtração dentro dos laços
+teremos:
+n x n x 1 = n² subtrações
+
+14)============================================================================================
+int i = 1, b = 10;
+
+while (i > 0) {
+	b--;
+	i = i >> 1;
+}
+
+Nesse primeiro laço While, i começa em 1 e é decrementado por deslocamento de bits para a direita, ou seja, divisão por 2; Sendo assim realizará 1 repetição, pois a divisão inteira de 1 por 2 é 0, sendo asssim serão realizados:
+1 Subtração
+
+i = 0;
+
+while (i < 15) {
+	b--;
+	i+= 2;
+}
+
+Nesse caso têm-se o 1 começando em zero e indo até i < 15, sendo incrementado em 2 unidades... sendo assim ele irá realizar 15/2 repetições, contabilizando 7,5. Porém deve-se levar em conta apenas as repetições inteiras, relizando assim teto(7.5), contabilizando assim 8 repetições com 1 subtração cada:
+8 subtrações
+
+teto(log(n)) + 1
+
+Total: 8 + 1 = 9 subtraçẽos
+
+15)============================================================================================
+for(int i = 0; i < n; i++)
+    for(int j = 0; j < n-3; j++)
+       a *= 2;
+
+Nesse código têm-se 2 estruturas de repetição:
+i = 0, incrementado de 1 em 1 enquanto i < n
+j = 0, incrementado de 1 em 1 enquanto j < n-3
+e a multiplicação dentro dos laçoes de repetição
+
+sendo assim no primeiro caso teremos:
+n repetições
+
+e no segundo caso:
+n-3 repetições 
+
+no total serão: n x n-3 x 1 multiplicações 
+n² - 3n mutiplicações
+f(4) = 16 - 12 = 4
+f(5) = 25 - 15 = 10
+...
+
+16)============================================================================================ 
+for(int i = 0; i < n; i++)
+    for(int j = 0; j < n-3; j++)
+       a *= 2;
+
+Nesse código têm-se 2 estruturas de repetição:
+i = 0, incrementado de 1 em 1 enquanto i < n
+j = 0, incrementado de 1 em 1 enquanto j < n-3
+e a multiplicação dentro dos laçoes de repetição
+
+sendo assim no primeiro caso teremos:
+n repetições
+
+e no segundo caso:
+n-3 repetições 
+
+no total serão: n x n-3 x 1 multiplicações 
+n² - 3n mutiplicações
+f(4) = 16 - 12 = 4
+f(5) = 25 - 15 = 10
+...
+
+17)============================================================================================
+for (int i = n; i > 0; i /= 2)
+	a *= 2;
+	
+Nesse laço de repetição têm-se:
+i = n, decrementado por uma divisão por 2, equanto i > 0;
+uma multiplicação
+
+Sendo assim o número de multiplicações feitas pelo agoritmo é medido como:
+
+lg(n)+1 x 1 multiplicações
+= log(n) + 1 multiplicações
+
+18)============================================================================================
+for (int i = n+4; i > 0; i >>= 1)
+	a *= 2;
+	
+Nesse laço de repetição têm-se:
+i = n+4, com i sendo decrementado por deslocamento de bits para a direita - divisão por 2 - enquanto i > 0;
+uma multiplicação
+
+Sendo assim o número de multiplicações será:
+lg(n+4) + 1 * 1 = lg(n+4) multiplicações
+
+19)============================================================================================
+Nos laços acima temos: 
+i = n - 7, com i decrementado 1 em 1 enquanto i >= 1
+j = n - 7, com j decrementado 1 em 1 enquanto j >= 1;
+com 1 multiplicação
+
+Sendo assim podemos contar o número de repetições que os laços realizam:
+No primeiro:
+Simplificando... 
+for(int i = 1; i <= n - 7; i++)
+i irá repetir n - 7 vezes
+
+No segundo:
+Simplificando...
+for(int j = 1; j <= n - 7; i++) 
+j irá repetir n - 7 vezes
+
+Sendo assim o número de multiplicações será:
+(n-7) x (n-7) x 1 = n²-7n-7n+49 = n²-14n+49, para n >= 8 
+
+f(8) = 64 - 112 + 49 = 113 - 112 = 1
+
+20)============================================================================================
+for(int i = n; i > 0; i /= 2)
+	a *= 2;
+	
+Nesse laço de repetição têm-se:
+i = n; i decrementado por divisões por 2; enquanto i > 0
+1 multiplicação
+
+Sendo assim a quantidade de repetições será calculada como:
+lg(n) + 1 repetições.
+
+21)============================================================================================
+for(int i = n+1; i > 0; i /= 2)
+	a *= 2;
+
+No laço de repetição acima têm-se:
+i = n+1; i decrementado por divisões por 2; enquanto i > 0
+uma multiplicação
+
+Sendo assim seu custo será calculado como:
+1) lg(n+1) + 1, para (n+1) multiplo de 2  
+2) piso(lg(n+1)) + 1, para qualquer outro (n+1)
+
+22)============================================================================================
+for (int i = n; i > 1; i /= 2)
+	a *= 2;
+	
+Nesta estrtura de repetição temos:
+i = n, decrementado de divisões por 2 enquanto i > 1
+uma multiplicação
+
+Sendo assim podemos saber o número de repetições:
+
+i começa de n e vai até i > 1, sendo assim deveremos subtrair 1 repetição no resultado, que se perderá
+
+O número de repetiçõpes sera:
+( lg(n) + 1 ) - 1
+
+Sendo asssim teremos:
+lg(n) multiplicações
+
+23)============================================================================================
+for (int i = 1; i < n; i *= 2)
+	a *= 2;
+	
+Nesse caso teremos, para n = 4 :
+
+i = 1;  mult++; i *= 2;
+i = 2;  mult++; i *= 2;
+i = 4;  (parar)
+
+para n = 5 :
+
+i = 1; mult++; i *= 2;
+i = 2; mult++; i *= 2;
+i = 4; mult++; i *= 2;
+i = 8; (parar)
+
+para n = 8;
+
+i = 1;  mult++; i *= 2;
+i = 2;  mult++; i *= 2;
+i = 4;  mult++; i *= 2;
+i = 8;  (parar);
+
+para n = 9;
+
+i = 1;  mult++; i *= 2;
+i = 2;  mult++; i *= 2;
+i = 4;  mult++; i *= 2;
+i = 8;  mult++; i *= 2;
+i = 16  (parar)
+
+Da mesma forma de divisões por 2 o custo é logaritmico, multiplicação por 2 o custo também será logaritmico :
+
+num Multiplicações = lg(n), para n multiplo de 2 
+
+num Multiplicações = piso(lg(n)) + 1, para um n qualquer
+
+e Como temos 2 multiplicações teremos o custo avaliado como:
+
+lg(n) x 2 , para n potência de 2
+piso(lg(n) + 1) x 2 , para n qualquer
+
+24)============================================================================================
+for(int i = 1; i <= n; i*=2)
+	a *= 2;
+
+Nesse caso teremos um custo logaritmo, porem como i pode ser igual ao termo n, iremos somar +1 iteração:
+
+n = 4;
+i = 1; a*=2; i*= 2;
+i = 2; a*=2; i*= 2;
+i = 4; a*=2; i*= 2;
+i = 4; (parar)
+
+n = 5;
+i = 1; a*=2; i*= 2;
+i = 2; a*=2; i*= 2;
+i = 4; a*=2; i*= 2;
+i = 8; (para)
+
+lg(n) + 1, para n potência de 2
+piso(n) + 1, para n qualquer
+
+como temos 2 multiplicaçẽos teremos:
+(lg(n) + 1) x 2
+(piso(n) + 1 x 2 para n qualquer
+
+29)============================================================================================
+int min = array[0];
+
+for(int i = 1; i < n; i++) {
+	if(min > array[i]) {
+		min = array[i];
+	}
+}
+
+1) A operação mais relevante será a comparação entre elementos do vetor
+
+2) Será executada n-1 vezes
+
+3) Melhor caso será se n for igual a 1, pois T(1) = 0; 
+
+
+30)============================================================================================
+Essas notações são chamadas "Ordens de crescimento assintótico".
+Na maioria das vezes quando apresentamos expressões como n+10 ou n²+1, a maioria das pesssoas pensa automaticamente em valores pequenos de n. A análise algoritmos faz o contrário, ignorando os valores pequenos e concentra-se em valores enormes de n.
+
+Ordem O:
+
+Dadas as funções NÃO NEGATIVAS f e g, dizemos que f está na ordem O de g e escrevemos f = O(g) se existe um número positivo c tal que f(n) <= c x g(x) para todo n SUFICIENTEMENTE GRANDE. Se existem números positivos c e n0 tais que f(n) <= c * g(n) para todo n maior que n0. Diz se "f" está em O(g) - ômicron de (g)
+
+Na pratica ela mede os limites assintóticos superiores
+
+Testa o pior caso de um algoritmo !!! (a assintota)
+
+Notação ômega :
+
+Ordem Theta:
+
+Dizemos que uma função f e g são da mesma ordem e escremevemos f = omega(g).
+
+Por exemplo: n², (3/2)n² são da mesma ordem: theta(n²)
+
+Ordem Omega :
+
+Sejam f e h funções reais positivas de variável inteira n, f é omega(h), escrevendo-se f = omega(h) se existir uma constante c > 0 e um valor inteiro n0 tal que:
+
+f = n² - 1 => f = omega(n²) 

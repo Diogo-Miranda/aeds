@@ -1,0 +1,23 @@
+for(int i = 1; i <= n; i*=2)
+	a *= 2;
+
+Nesse caso teremos um custo logaritmo, porem como i pode ser igual ao termo n, iremos somar +1 iteração:
+
+n = 4;
+i = 1; a*=2; i*= 2;
+i = 2; a*=2; i*= 2;
+i = 4; a*=2; i*= 2;
+i = 4; (parar)
+
+n = 5;
+i = 1; a*=2; i*= 2;
+i = 2; a*=2; i*= 2;
+i = 4; a*=2; i*= 2;
+i = 8; (para)
+
+lg(n) + 1, para n potência de 2
+piso(n) + 1, para n qualquer
+
+como temos 2 multiplicaçẽos teremos:
+(lg(n) + 1) x 2
+(piso(n) + 1 x 2 para n qualquer

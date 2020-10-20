@@ -1,0 +1,7 @@
+...
+for (int i = 0; i < n; i++) {
+	a--;
+	b--;
+}
+
+i começa de 0 e vai até n, e dentro da repetição for ocorrem duas subtrações... Sendo assim o número de subtrações será 2n

@@ -1,0 +1,8 @@
+O operador << e >> são operadoradores bit a bit. Sendo assim eles manipulam os bits presentes nos inteiros. O operador << desloca 2 bits da direita para esquerda no numero.
+Exemplo: 101001
+Ao deslocar 1 bit com << ficará:
+    10100
+Já o operador >> acrescente 2 bits em um numero
+Exemplo: 101001
+Ao deslocar 1 bit com >> ficará:
+    101000

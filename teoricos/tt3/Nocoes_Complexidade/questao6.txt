@@ -1,0 +1,6 @@
+...
+for (int i = 0; i < 4; i++){
+	a--;
+}
+
+O código irá executar 4 subtrações, pois i varia de 0 à 3 - i começa de 0 e vai até n (4)

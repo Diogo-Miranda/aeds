@@ -1,0 +1,7 @@
+1) Ele irá mostrar na tela e ler do teclado normalmente.
+
+2) Ele irá mostrar o que está contido no arquivo in.txt, em cada linha correspondente
+
+3) Ele irá printar no arquivo tanto o println do programa quanto a entrada do teclado
+
+4) Ele irá ler do arquivo in.txt e printar no arquivo out.txt tanto o conteúdo lido do teclado quanto o conteúdo printado pelo programa

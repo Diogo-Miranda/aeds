@@ -1,0 +1,9 @@
+for(int i = n; i > 0; i /= 2)
+	a *= 2;
+	
+Nesse laço de repetição têm-se:
+i = n; i decrementado por divisões por 2; enquanto i > 0
+1 multiplicação
+
+Sendo assim a quantidade de repetições será calculada como:
+lg(n) + 1 repetições.

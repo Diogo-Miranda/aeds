@@ -1,0 +1,16 @@
+for (int i = n; i > 1; i /= 2)
+	a *= 2;
+	
+Nesta estrtura de repetição temos:
+i = n, decrementado de divisões por 2 enquanto i > 1
+uma multiplicação
+
+Sendo assim podemos saber o número de repetições:
+
+i começa de n e vai até i > 1, sendo assim deveremos subtrair 1 repetição no resultado, que se perderá
+
+O número de repetiçõpes sera:
+( lg(n) + 1 ) - 1
+
+Sendo asssim teremos:
+lg(n) multiplicações

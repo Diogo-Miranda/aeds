@@ -1,0 +1,13 @@
+...
+for (int i = 0; i < n; i++) {
+	for (int j = 0; j < n; j++) {
+		a--;
+	}
+}
+
+Existem 2 estruturas de repetição:
+i incrementado de 1 em 1, n vezes
+j incrementado de 1 em 1, n vezes
+E existem 1 subtração dentro dos laços
+teremos:
+n x n x 1 = n² subtrações

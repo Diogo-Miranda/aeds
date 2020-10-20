@@ -1,0 +1,11 @@
+...
+if (a+5<b+3 || c+1 < d+3) {
+	i++;
+	++b;
+	a += 3;       // Pior caso
+} else {
+	j++; // Melhor caso
+}
+
+Melhor caso: se a primeira condição for verdadeira... 3 adições
+Pior caso: se a primeira condição for falsa e entrar na condição if... 7 adições

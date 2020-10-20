@@ -1,0 +1,20 @@
+...
+for (int i =5; i >= 2; i--) {
+	a--;
+}
+
+i começa de 5 e equanto for maior ou igual a 2 irá decrementar em 1 a variável i e uma a variável 'a' dentro do laço de repetição, portanto:
+((a - n) + 1)*2;
+sendo: 
+a : 5;
+n : 2;
+
+((5 - 2) + 1)*2 = 8 subtrações 
+
+i = 5;  a-- i--;
+i = 4;  a-- i--;
+i = 3;  a-- i--;
+i = 2;  a-- i--;
+i = 1;  (parar)
+
+8 subtrações...

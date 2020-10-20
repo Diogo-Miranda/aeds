@@ -1,0 +1,9 @@
+for (int i = n+4; i > 0; i >>= 1)
+	a *= 2;
+	
+Nesse laço de repetição têm-se:
+i = n+4, com i sendo decrementado por deslocamento de bits para a direita - divisão por 2 - enquanto i > 0;
+uma multiplicação
+
+Sendo assim o número de multiplicações será:
+lg(n+4) + 1 * 1 = lg(n+4) multiplicações

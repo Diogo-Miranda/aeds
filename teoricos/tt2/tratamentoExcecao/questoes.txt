@@ -1,0 +1,1 @@
+1) Gera a Excecao java.lang.NumberFormtException e Finaliza o programa. Não é possível converter a "palavra" em um inteiro.

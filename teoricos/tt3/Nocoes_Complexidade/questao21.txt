@@ -1,0 +1,10 @@
+for(int i = n+1; i > 0; i /= 2)
+	a *= 2;
+
+No laço de repetição acima têm-se:
+i = n+1; i decrementado por divisões por 2; enquanto i > 0
+uma multiplicação
+
+Sendo assim seu custo será calculado como:
+1) lg(n+1) + 1, para (n+1) multiplo de 2  
+2) piso(lg(n+1)) + 1, para qualquer outro (n+1)

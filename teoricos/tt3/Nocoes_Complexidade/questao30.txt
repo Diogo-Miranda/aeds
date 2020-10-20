@@ -1,0 +1,24 @@
+Essas notações são chamadas "Ordens de crescimento assintótico".
+Na maioria das vezes quando apresentamos expressões como n+10 ou n²+1, a maioria das pesssoas pensa automaticamente em valores pequenos de n. A análise algoritmos faz o contrário, ignorando os valores pequenos e concentra-se em valores enormes de n.
+
+Ordem O:
+
+Dadas as funções NÃO NEGATIVAS f e g, dizemos que f está na ordem O de g e escrevemos f = O(g) se existe um número positivo c tal que f(n) <= c x g(x) para todo n SUFICIENTEMENTE GRANDE. Se existem números positivos c e n0 tais que f(n) <= c * g(n) para todo n maior que n0. Diz se "f" está em O(g) - ômicron de (g)
+
+Na pratica ela mede os limites assintóticos superiores
+
+Testa o pior caso de um algoritmo !!! (a assintota)
+
+Notação ômega :
+
+Ordem Theta:
+
+Dizemos que uma função f e g são da mesma ordem e escremevemos f = omega(g).
+
+Por exemplo: n², (3/2)n² são da mesma ordem: theta(n²)
+
+Ordem Omega :
+
+Sejam f e h funções reais positivas de variável inteira n, f é omega(h), escrevendo-se f = omega(h) se existir uma constante c > 0 e um valor inteiro n0 tal que:
+
+f = n² - 1 => f = omega(n²) 

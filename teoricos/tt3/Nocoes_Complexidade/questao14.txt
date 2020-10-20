@@ -1,0 +1,24 @@
+int i = 1, b = 10;
+
+while (i > 0) {
+	b--;
+	i = i >> 1;
+}
+
+Nesse primeiro laço While, i começa em 1 e é decrementado por deslocamento de bits para a direita, ou seja, divisão por 2; Sendo assim realizará 1 repetição, pois a divisão inteira de 1 por 2 é 0, sendo asssim serão realizados:
+1 Subtração
+
+i = 0;
+
+while (i < 15) {
+	b--;
+	i+= 2;
+}
+
+Nesse caso têm-se o 1 começando em zero e indo até i < 15, sendo incrementado em 2 unidades... sendo assim ele irá realizar 15/2 repetições, contabilizando 7,5. Porém deve-se levar em conta apenas as repetições inteiras, relizando assim teto(7.5), contabilizando assim 8 repetições com 1 subtração cada:
+8 subtrações
+
+teto(log(n)) + 1
+
+Total: 8 + 1 = 9 subtraçẽos
+

@@ -1,0 +1,312 @@
+	______________________ 
+	| Diogo Aruajo Miranda|
+	| Matricula : 705657  |
+	|_____________________|
+
+Exercicio 1
+
+menor = 12
+
+12 > 4 ? true menor = 4
+4 > 8 ?  false
+4 > 2 ?  true menor = 2
+2 > 14 ? false
+2 > 17 ? false
+2 > 6  ? false
+2 > 18 ? false
+2 > 10 ? false
+2 > 16 ? false
+2 > 15 ? false
+2 > 5  ? false 
+2 > 13 ? false
+2 > 9  ? false
+2 > 1  ? true menor = 1
+1 > 11 ? false 
+1 > 7  ? false
+1 > 3  ? false
+
+aux = array[i](12)
+array[i](12) = array[menor](1)
+array[menor] = aux(12)
+
+1 4 8 2 14 17 6 18 10 16 15 5 13 9 12 11 7 3
+
+menor = 4 
+
+4  > 8 ? false         
+4 > 2 ?  true menor = 2
+2 > 14 ? false         
+2 > 17 ? false
+2 > 6  ? false
+2 > 18 ? false
+2 > 10 ? false
+2 > 16 ? false
+2 > 15 ? false
+2 > 5  ? false
+2 > 13 ? false 
+2 > 9  ? false
+2 > 12 ? false
+2 > 11 ? false         
+2 > 7  ? false 
+2 > 3  ? false
+      
+aux = array[i](4)
+array[i](4) = array[menor](2)
+array[menor] = aux(4) 
+
+1 2 8 4 14 17 6 18 10 16 15 5 13 9 12 11 7 3 
+
+menor = 8 
+
+8  > 4 ? true menor = 4
+4 >14 ?  false          
+4 > 17 ? false         
+4 > 6  ? false
+4 > 18 ? false
+4 > 10 ? false
+4 > 16 ? false
+4 > 15 ? false
+4 > 5  ? false
+4 > 13 ? false
+4 > 9  ? false 
+4 > 12 ? false
+4 > 11 ? false
+4 > 7  ? false         
+4 > 3  ? true menor = 3
+
+aux = array[i](8)
+array[i](8) = array[menor](3)
+array[menor] = aux(8)
+
+1 2 3 4 14 17 6 18 10 16 15 5 13 9 12 11 7 8
+
+menor = 4
+
+4  >14 ? false         
+4 >17 ?  false          
+4 > 6  ? false         
+4 > 18 ? false
+4 > 10 ? false
+4 > 16 ? false
+4 > 15 ? false
+4 > 5  ? false
+4 > 13 ? false
+4 > 9  ? false 
+4 > 12 ? false
+4 > 11 ? false
+4 > 7  ? false         
+4 > 8  ? false         
+
+aux = array[i](4)
+array[i](4) = array[menor](4)
+array[menor] = aux(4)
+
+1 2 3 4 14 17 6 18 10 16 15 5 13 9 12 11 7 8
+
+menor = 14
+
+14 >17 ? false         
+14>6  ?  true menor = 6 
+6 > 18 ? false         
+6 > 10 ? false
+6 > 16 ? false
+6 > 15 ? false
+6 > 5  ? true menor = 5
+5 > 13 ? false
+5 > 9  ? false 
+5 > 12 ? false
+5 > 11 ? false
+5 > 7  ? false         
+5 > 8  ? false 
+
+aux = array[i](14)
+array[i](14)= array[menor](5)
+array[menor] = aux(14)
+
+1 2 3 4 5 17 6 18 10 16 15 14 13 9 12 11 7 8
+
+menor = 17
+
+17 >6  ? true menor = 6
+ 6 > 18 ? false         
+6 > 10 ? false
+6 > 16 ? false
+6 > 15 ? false
+6 > 14 ? false
+5 > 13 ? false
+5 > 9  ? false 
+5 > 12 ? false
+5 > 11 ? false
+5 > 7  ? false         
+5 > 8  ? false 
+
+aux = array[i](17)
+array[i](17)= array[menor](6)
+array[menor] = aux(17)
+
+1 2 3 4 5 6 17 18 10 16 15 14 13 9 12 11 7 8
+
+menor = 17 
+
+17 >18 ? false          
+17 > 10 ? true menor = 10
+10> 16 ? false
+10> 15 ? false
+10> 14 ? false
+10> 13 ? false
+10> 9  ? true menor = 9
+9 > 12 ? false 
+9 > 11 ? false
+9 > 7  ? true menor = 7
+7 > 8  ? false         
+
+aux = array[i](17)
+array[i](17)= array[menor](7)
+array[menor] = aux(17)
+
+1 2 3 4 5 6 7 18 10 16 15 14 13 9 12 11 17 8
+
+menor = 18
+
+18 >10 ? true menor = 10
+10> 16 ? false
+10> 15 ? false
+10> 14 ? false
+10> 13 ? false
+10> 9  ? true menor = 9
+9 > 12 ? false 
+9 > 11 ? false
+9 > 17 ? false        
+9 > 8  ? true menor = 8
+
+aux = array[i](18)
+array[i](18)= array[menor](8)
+array[menor] = aux(18)
+
+1 2 3 4 5 6 7 8 10 16 15 14 13 9 12 11 17 18
+
+menor = 10
+
+10 >16 ? false          
+10> 15 ? false
+10> 14 ? false
+10> 13 ? false
+10> 9  ? true menor = 9
+9 > 12 ? false 
+9 > 11 ? false
+9 > 17 ? false        
+9 > 18 ? false          
+
+aux = array[i](10)
+array[i](10)= array[menor](9)
+array[menor] = aux(10)
+
+1 2 3 4 5 6 7 8 9 16 15 14 13 10 12 11 17 18
+
+menor = 16
+
+16 >15 ? true  menor = 15
+15> 14 ? true menor = 14
+14> 13 ? true menor = 13
+13> 10 ? true menor = 10
+10> 12 ? false         
+10> 11 ? false 
+10> 17 ? false
+10> 18 ? false         
+
+aux = array[i](16)
+array[i](16)= array[menor](10)
+array[menor] = aux(16)
+
+1 2 3 4 5 6 7 8 9 10 15 14 13 16 12 11 17 18
+
+menor = 15
+
+15> 14 ? true menor = 14
+14> 13 ? true menor = 13
+13> 16 ? false          
+13> 12 ? true menor = 12
+12> 11 ? true menor = 11
+11> 17 ? false
+11> 18 ? false 
+
+aux = array[i](15)
+array[i](15)= array[menor](11)
+array[menor] = aux(15)
+
+1 2 3 4 5 6 7 8 9 10 11 14 13 16 12 15 17 18
+
+menor = 14 
+
+14> 13 ? true menor = 13
+13> 16 ? false          
+13> 12 ? true menor = 12
+12> 15 ? false          
+12> 17 ? false
+12> 18 ? false 
+
+aux = array[i](14)
+array[i](14)= array[menor](12)
+array[menor] = aux(14)
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 16 14 15 17 18
+
+menor = 13 
+
+13> 16 ? false          
+13> 14 ? false           
+13> 15 ? false          
+13> 17 ? false
+13> 18 ? false 
+
+aux = array[i](13)
+array[i](13)= array[menor](13)
+array[menor] = aux(13)
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 16 14 15 17 18
+
+menor = 16
+
+16> 14 ? true menor = 14
+14> 15 ? false          
+14> 17 ? false
+14> 18 ? false 
+
+aux = array[i](16)
+array[i](16)= array[menor](14)
+array[menor] = aux(16)
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 16 15 17 18
+
+menor = 16 
+
+16> 15 ? true menor = 15
+15> 17 ? false
+15> 18 ? false 
+
+aux = array[i](16)
+array[i](16)= array[menor](15)
+array[menor] = aux(16)
+
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+
+menor = 16 
+
+16> 17 ? false
+16> 18 ? false 
+
+aux = array[i](16)
+array[i](16)= array[menor](16)
+array[menor] = aux(16)
+
+menor = 17 
+
+17 > 18 ? false
+
+aux = array[i](17)
+array[i](17)= array[menor](17)
+array[menor] = aux(17)
+
+Exercicio 2 )
+
+O número de comparações vai se manter o mesmo, pois o algoritmo sempre executa a ordem de teta(n²) comparações, independente dos casos. E o número de mvoimentações não serão evitadas pois o algoritmo sempre realiza 3 movimentações em todos os casos.

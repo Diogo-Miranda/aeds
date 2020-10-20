@@ -1,0 +1,13 @@
+int min = array[0];
+
+for(int i = 1; i < n; i++) {
+	if(min > array[i]) {
+		min = array[i];
+	}
+}
+
+1) A operação mais relevante será a comparação entre elementos do vetor
+
+2) Será executada n-1 vezes
+
+3) Melhor caso será se n for igual a 1, pois T(1) = 0; 

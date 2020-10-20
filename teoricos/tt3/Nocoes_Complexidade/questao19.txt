@@ -1,0 +1,24 @@
+for(int i = n - 7; i >= 1; i--)
+	for(int j = n-7; j >= 1; j--)
+		a *= 2;
+		
+Nos laços acima temos: 
+i = n - 7, com i decrementado 1 em 1 enquanto i >= 1
+j = n - 7, com j decrementado 1 em 1 enquanto j >= 1;
+com 1 multiplicação
+
+Sendo assim podemos contar o número de repetições que os laços realizam:
+No primeiro:
+Simplificando... 
+for(int i = 1; i <= n - 7; i++)
+i irá repetir n - 7 vezes
+
+No segundo:
+Simplificando...
+for(int j = 1; j <= n - 7; i++) 
+j irá repetir n - 7 vezes
+
+Sendo assim o número de multiplicações será:
+(n-7) x (n-7) x 1 = n²-7n-7n+49 = n²-14n+49, para n >= 8 
+
+f(8) = 64 - 112 + 49 = 113 - 112 = 1

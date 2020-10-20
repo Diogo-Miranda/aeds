@@ -1,0 +1,9 @@
+i-- : decrementa o valor de i em 1, mas só irá decrementar depois de ser chamado;
+i = 1
+Exemplo: System.out.print(i--) // imprime 1;
+         System.out.print(i) // imprime 0;
+
+--i : decrementa o valor de i em 1 e retorna o valor já decrementado;
+i = 1
+Exemplo: System.out.print(--i) // imrpime 0;
+         System.out.print(i) // imprime 0;

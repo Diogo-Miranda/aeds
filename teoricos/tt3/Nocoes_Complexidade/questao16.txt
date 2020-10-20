@@ -1,0 +1,24 @@
+for (int i = n-7; i >= 1; i--)
+	for(int j = 0; j < n; j++)
+		a *= 2;
+		
+Nesse caso temos 2 estruturas de repetição:
+i = n-7, decrementado de 1 em 1, enquanto i >= 1
+j = 0, incrementado de 1 em 1, enquanto j < n
+1 multiplicação dentro do laço
+
+Sendo assim teremos as requintes repetições
+no primeiro:
+Simplificando:
+for(int i = 1; i <= n-7; i++)
+i irá variar n-7 vezes,
+
+no segundo :
+num repetições = n;
+
+Sendo assim o número de multiplicações será:
+(n-7) x n x 1 = (n-7) x n = n²-7n, onde terá imagem positiva e diferente de zero com o domínio n >= 8
+
+f(8) = 64 - 56 = 8
+f(9) = 81 - 63 = 18
+f(10) = 100 - 70 = 30

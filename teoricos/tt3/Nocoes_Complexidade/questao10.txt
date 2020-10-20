@@ -1,0 +1,11 @@
+int i = 10;
+
+while (i >= 7) {
+	i--;
+}
+
+i começa em 10 e enquanto for maior ou igual a 7 irá decrementar de 1 em 1... portanto irá variar de 10 - 7 = 3 unidade e será executava também a repetição de quanto é igual a 7:
+(a - n) + 1;
+a : 10;
+n : 7;
+(10 - 7) + 1 = 4 subtrações

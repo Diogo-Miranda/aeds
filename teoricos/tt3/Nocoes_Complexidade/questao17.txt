@@ -1,0 +1,11 @@
+for (int i = n; i > 0; i /= 2)
+	a *= 2;
+	
+Nesse laço de repetição têm-se:
+i = n, decrementado por uma divisão por 2, equanto i > 0;
+uma multiplicação
+
+Sendo assim o número de multiplicações feitas pelo agoritmo é medido como:
+
+lg(n)+1 x 1 multiplicações
+= log(n) + 1 multiplicações

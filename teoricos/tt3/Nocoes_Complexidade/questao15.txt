@@ -1,0 +1,20 @@
+for(int i = 0; i < n; i++)
+    for(int j = 0; j < n-3; j++)
+       a *= 2;
+
+Nesse código têm-se 2 estruturas de repetição:
+i = 0, incrementado de 1 em 1 enquanto i < n
+j = 0, incrementado de 1 em 1 enquanto j < n-3
+e a multiplicação dentro dos laçoes de repetição
+
+sendo assim no primeiro caso teremos:
+n repetições
+
+e no segundo caso:
+n-3 repetições 
+
+no total serão: n x n-3 x 1 multiplicações 
+n² - 3n mutiplicações
+f(4) = 16 - 12 = 4
+f(5) = 25 - 15 = 10
+...

@@ -1,0 +1,4 @@
+teto(4,01) = 5;	piso(4,01)   = 4;	teto(4,99)    = 5;
+piso(4.99) = 4;	teto(lg(16)) = 4;	teto(lg(16))  = 4;
+lg(17)     = 4.08;     teto(lg(17)) = 5;	piso(lg(17))  = 4;
+lg(15)     = 3.9;      teto(lg(15)) = 4; 	pisto(lg(15)) = 3;

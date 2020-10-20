@@ -1,0 +1,41 @@
+for (int i = 1; i < n; i *= 2)
+	a *= 2;
+	
+Nesse caso teremos, para n = 4 :
+
+i = 1;  mult++; i *= 2;
+i = 2;  mult++; i *= 2;
+i = 4;  (parar)
+
+para n = 5 :
+
+i = 1; mult++; i *= 2;
+i = 2; mult++; i *= 2;
+i = 4; mult++; i *= 2;
+i = 8; (parar)
+
+para n = 8;
+
+i = 1;  mult++; i *= 2;
+i = 2;  mult++; i *= 2;
+i = 4;  mult++; i *= 2;
+i = 8;  (parar);
+
+para n = 9;
+
+i = 1;  mult++; i *= 2;
+i = 2;  mult++; i *= 2;
+i = 4;  mult++; i *= 2;
+i = 8;  mult++; i *= 2;
+i = 16  (parar)
+
+Da mesma forma de divisões por 2 o custo é logaritmico, multiplicação por 2 o custo também será logaritmico :
+
+num Multiplicações = lg(n), para n multiplo de 2 
+
+num Multiplicações = piso(lg(n)) + 1, para um n qualquer
+
+e Como temos 2 multiplicações teremos o custo avaliado como:
+
+lg(n) x 2 , para n potência de 2
+piso(lg(n) + 1) x 2 , para n qualquer

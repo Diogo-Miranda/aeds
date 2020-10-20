@@ -1,0 +1,2 @@
+Irá mostrar o tamanho máximo de cada tipo de variável enquanto o while for true
+. Visivelmente as variáveis irão estourar o tamanho que elas podem ocupar. Por exemplo, um byte tem valor máximo de 127 e o valor mínimo de -128. Quando estourar o valor de 127 irá 'resetar' para o valor de -128 e ir incrementando +1 até acontencer o mesmo ciclo
