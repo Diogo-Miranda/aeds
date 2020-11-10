@@ -16,7 +16,6 @@ class Celula {
         this.inf = null;
     }
 }
-
 class MatrizFlexivel {
     public int numLinha;
     public int numColuna;
