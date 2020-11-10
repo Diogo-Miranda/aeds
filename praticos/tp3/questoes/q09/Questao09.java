@@ -1,6 +1,3 @@
-import java.util.List;
-import java.util.ArrayList;
-
 class Celula {
     public Celula prox;
     public Celula ant;
