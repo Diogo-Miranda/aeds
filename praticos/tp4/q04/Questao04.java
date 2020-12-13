@@ -8,7 +8,7 @@ import java.util.Date;
 
 import javax.swing.text.DefaultEditorKit.CopyAction;
 
-class Jogador{
+class Jogador {
     // Declaração de dados padrão
     private int id;
     private String nome;
@@ -351,88 +351,244 @@ class Jogador{
     }
 }
 
-class No 
-{
-	public Jogador jogador;
-	public No esq, dir;
-	
-	public No(Jogador jogador) {
-		this(jogador, null, null);
-	}	
 
-	public No(Jogador jogador, No esq, No dir) {
-		this.jogador = jogador;
-		this.esq = esq;
-		this.dir = dir;
+class Alvinegra {
+    private NoAN raiz; // Raiz
+    private int numComp;
+
+    public Alvinegra() {
+        raiz = null;
+        numComp = 0;
+    }
+
+	public void inserir(Jogador elemento) throws Exception {
+   
+        //Se a arvore estiver vazia
+        if(raiz == null){
+           raiz = new NoAN(elemento, false);
+  
+        //Senao, se a arvore tiver um elemento 
+        } else if (raiz.esq == null && raiz.dir == null){
+           if (raiz.elemento.getNome().compareTo(elemento.getNome()) > 0){
+              raiz.esq = new NoAN(elemento, true);
+              
+           } else {
+              raiz.dir = new NoAN(elemento, true);
+              
+           }
+  
+        //Senao, se a arvore tiver dois elementos (raiz e dir)
+        } else if (raiz.esq == null){
+           if(raiz.elemento.getNome().compareTo(elemento.getNome()) > 0){
+              raiz.esq = new NoAN(elemento);
+           } else if (raiz.dir.elemento.getNome().compareTo(elemento.getNome()) > 0){
+              raiz.esq = new NoAN(raiz.elemento);
+              raiz.elemento = elemento;
+           } else {
+              raiz.esq = new NoAN(raiz.elemento);
+              raiz.elemento = raiz.dir.elemento;
+              raiz.dir.elemento = elemento;
+              
+           }
+  
+           raiz.esq.cor = raiz.dir.cor = false;
+           
+        //Senao, se a arvore tiver dois elementos (raiz e esq)
+        } else if (raiz.dir == null){
+           
+           if(raiz.elemento.getNome().compareTo(elemento.getNome()) < 0){
+              raiz.dir = new NoAN(elemento);
+           } else if (raiz.esq.elemento.getNome().compareTo(elemento.getNome()) < 0){
+              raiz.dir = new NoAN(raiz.elemento);
+              raiz.elemento = elemento;
+              
+           } else {
+              raiz.dir = new NoAN(raiz.elemento);
+              raiz.elemento = raiz.esq.elemento;
+              raiz.esq.elemento = elemento;
+             
+           }
+  
+           raiz.esq.cor = raiz.dir.cor = false;
+  
+        //Senao, a arvore tem tres ou mais elementos
+        } else {
+            inserir(elemento, null, null, null, raiz);
+        }
+  
+        raiz.cor = false;
+     }
+  
+     private void balancear(NoAN bisavo, NoAN avo, NoAN pai, NoAN i){
+  
+        //Se o pai tambem e preto, reequilibrar a arvore, rotacionando o avo
+        if(pai.cor == true){
+  
+           //4 tipos de reequilibrios e acoplamento
+           if(pai.elemento.getNome().compareTo(avo.elemento.getNome()) > 0){ // rotacao a esquerda ou direita-esquerda
+              if(i.elemento.getNome().compareTo(pai.elemento.getNome()) > 0){
+                 avo = rotacaoEsq(avo);
+              } else {
+                 avo = rotacaoDirEsq(avo);
+              }
+  
+           } else { // rotacao a direita ou esquerda-direita
+              if(i.elemento.getNome().compareTo(pai.elemento.getNome()) < 0){
+                 avo = rotacaoDir(avo);
+              } else {
+                 avo = rotacaoEsqDir(avo);
+              }
+           }
+  
+           if (bisavo == null){
+              raiz = avo;
+           } else {
+              if(avo.elemento.getNome().compareTo(bisavo.elemento.getNome()) < 0){
+                 bisavo.esq = avo;
+              } else {
+                 bisavo.dir = avo;
+              }
+           }
+  
+           //reestabelecer as cores apos a rotacao
+           avo.cor = false;
+           avo.esq.cor = avo.dir.cor = true;
+        } //if(pai.cor == true)
+     }
+  
+      /**
+       * Metodo privado recursivo para inserir elemento.
+       * @param elemento Elemento a ser inserido.
+       * @param avo NoAN em analise.
+       * @param pai NoAN em analise.
+       * @param i NoAN em analise.
+       * @throws Exception Se o elemento existir.
+       */
+      private void inserir(Jogador elemento, NoAN bisavo, NoAN avo, NoAN pai, NoAN i) throws Exception {
+          if (i == null) {
+  
+           if(elemento.getNome().compareTo(pai.elemento.getNome()) < 0){
+              i = pai.esq = new NoAN(elemento, true);
+           } else {
+              i = pai.dir = new NoAN(elemento, true);
+           }
+  
+           if(pai.cor == true){
+              balancear(bisavo, avo, pai, i);
+           }
+  
+        } else {
+  
+          //Achou um 4-no: eh preciso fragmeta-lo e reequilibrar a arvore
+           if(i.esq != null && i.dir != null && i.esq.cor == true && i.dir.cor == true){
+              i.cor = true;
+              i.esq.cor = i.dir.cor = false;
+              if(i == raiz){
+                 i.cor = false;
+              }else if(pai.cor == true){
+                 balancear(bisavo, avo, pai, i);
+              }
+           }
+           if (elemento.getNome().compareTo(i.elemento.getNome()) < 0) {
+              inserir(elemento, avo, pai, i, i.esq);
+           } else if (elemento.getNome().compareTo(i.elemento.getNome()) > 0) {
+              inserir(elemento, avo, pai, i, i.dir);
+           } else {
+              throw new Exception("Erro inserir (elemento repetido)!");
+           }
+        }
+      }
+  
+     private NoAN rotacaoDir(NoAN no) {
+        NoAN noEsq = no.esq;
+        NoAN noEsqDir = noEsq.dir;
+  
+        noEsq.dir = no;
+        no.esq = noEsqDir;
+  
+        return noEsq;
+     }
+  
+     private NoAN rotacaoEsq(NoAN no) {
+        NoAN noDir = no.dir;
+        NoAN noDirEsq = noDir.esq;
+  
+        noDir.esq = no;
+        no.dir = noDirEsq;
+        return noDir;
+     }
+  
+     private NoAN rotacaoDirEsq(NoAN no) {
+        no.dir = rotacaoDir(no.dir);
+        return rotacaoEsq(no);
+     }
+  
+     private NoAN rotacaoEsqDir(NoAN no) {
+        no.esq = rotacaoEsq(no.esq);
+        return rotacaoDir(no);
+     }
+
+	public boolean pesquisar(String elemento) {
+        System.out.print("raiz ");
+		return pesquisar(elemento, raiz);
 	}
-}
 
-class ArvoreBinaria 
-{
-	private No raiz;
-	private int numComp;
-
-	public ArvoreBinaria() {
-		raiz = null;
-		numComp = 0;
-	}
-
-	public boolean pesquisar(String nome) {
-		System.out.print(nome + " ");
-		System.out.print("raiz ");
-		return pesquisar(nome, raiz);
-	}
-
-	private boolean pesquisar(String nome, No i) {
-		boolean resp;
-		// Se estiver chegado em uma folha
-		numComp++;
-		if(i == null) {
-			resp = false;
-			numComp++;
-		} else if (nome.equals(i.jogador.getNome())) {
-			numComp++;
-			resp = true;
-		} else if (nome.compareTo(i.jogador.getNome()) < 0) {
-			numComp++;
-			System.out.print("esq ");
-			resp = pesquisar(nome, i.esq);
-		} else {
-			numComp++;
-			System.out.print("dir ");
-			resp = pesquisar(nome, i.dir);
-		} 
-
-		return resp;
-	}
-
-	public void inserir(Jogador jogador) {
-		raiz = inserir(jogador, raiz);
-	}
-
-	private No inserir(Jogador jogador, No i) {
-		numComp++;
+	private boolean pesquisar(String elemento, NoAN i) {
+        boolean resp;
+        numComp++;
 		if (i == null) {
-			i = new No(jogador);
-			numComp++;
-		} else if (jogador.getNome().compareTo(i.jogador.getNome()) < 0) {
-			numComp++;
-			i.esq = inserir(jogador, i.esq);
-		} else if (jogador.getNome().compareTo(i.jogador.getNome()) > 0) {
-			i.dir = inserir(jogador, i.dir);
-		} else {
-			System.out.println("ERRO");
-		}
-		
-		return i;
+            resp = false;
+        } else if (elemento.equals(i.elemento.getNome())) {
+            numComp++;
+            resp = true;
+        } else if (elemento.compareTo(i.elemento.getNome()) < 0) {
+            System.out.print("esq ");
+            numComp+=2;
+            resp = pesquisar(elemento, i.esq);
+        } else {
+            System.out.print("dir ");
+            numComp+=2;
+            resp = pesquisar(elemento, i.dir);
+        }
+        return resp;
 	}
 
-	public int getNumComp() {
-		return this.numComp;
-	}
+    public int getNumComp() {
+        return numComp;
+    }
+
+    public void setNumComp(int numComp) {
+        this.numComp = numComp;
+    }
 }
 
-public class Questao01
+class NoAN {
+    public boolean cor;
+    public Jogador elemento;
+    public NoAN esq, dir;
+    
+    public NoAN() {
+        this(null);
+    }
+
+    public NoAN(Jogador elemento) {
+        this(elemento, false, null, null);
+    }
+
+    public NoAN(Jogador elemento, boolean cor) {
+        this(elemento, cor, null, null);
+    } 
+
+    public NoAN(Jogador elemento, boolean cor, NoAN esq, NoAN dir) {
+        this.cor = cor;
+        this.elemento = elemento.clone();
+        this.esq = esq;
+        this.dir = dir;
+    }
+
+}
+
+public class Questao04
 {	
     /**
      * isFim(String in)
@@ -454,18 +610,17 @@ public class Questao01
     {
 		return new Date().getTime();
     }
-    
-		
-    public static void main (String[] args) throws IOException
+
+    public static void main (String[] args) throws IOException, Exception
     {
         String entrada[] = new String[500];
         int numEntrada = 0;
 				
-	FileWriter fw = new FileWriter("705657_arvoreBinaria.txt.txt");
-	BufferedWriter log = new BufferedWriter(fw);
+		FileWriter fw = new FileWriter("705657_alvinegra.txt");
+		BufferedWriter log = new BufferedWriter(fw);
 		
-	double inicio;	
-	double fim;
+		double inicio;	
+		double fim;
         try {
 			// Leitura do id dos jogadores
             do {
@@ -474,17 +629,16 @@ public class Questao01
             numEntrada--;
             
             Jogador[] jogador = new Jogador[numEntrada];
-			ArvoreBinaria ab = new ArvoreBinaria();
+            Alvinegra an = new Alvinegra();
 
-            boolean sucessRead = true;
             for(int i = 0; i < numEntrada; i++)
             {
                 jogador[i] = new Jogador();
                 if(entrada[i].equals("223")) entrada[i] = "222";
                 jogador[i].ler(entrada[i]);
-				ab.inserir(jogador[i]);
+				an.inserir(jogador[i]);
 			}
-			
+
 			// Segunda entrada
 			numEntrada = 0;
 			do{
@@ -498,21 +652,22 @@ public class Questao01
 			boolean resp;
 			for(int i = 0; i < numEntrada; i++)
 			{
-				resp = ab.pesquisar(entrada[i]);
+                System.out.print(entrada[i] + " ");
+                resp = an.pesquisar(entrada[i]);
 				if(resp) {
 					System.out.print("SIM\n");
 				} else {
 					System.out.print("NAO\n");
 				}
-			} 
+			}
 
             fim = now(); // Tempo final da pesquisa
             
-           double total = ((fim-inicio)/1000.0);
+            double total = ((fim-inicio)/1000.0);
 			
-			log.write("705657\t"+total+"\t"+ab.getNumComp());			
+			log.write("705657\t"+total+"\t"+an.getNumComp());			
                 
-            log.close();			
+			log.close();			
 
         } catch (IOException e) {
                 System.out.println("##### ERRO : "+e.getMessage());

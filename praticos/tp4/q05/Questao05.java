@@ -414,13 +414,14 @@ class ArvoreBinaria
 		numComp++;
 		if (i == null) {
 			i = new No(jogador);
-			numComp++;
 		} else if (jogador.getNome().compareTo(i.jogador.getNome()) < 0) {
 			numComp++;
 			i.esq = inserir(jogador, i.esq);
 		} else if (jogador.getNome().compareTo(i.jogador.getNome()) > 0) {
+            numComp+=2;
 			i.dir = inserir(jogador, i.dir);
 		} else {
+            numComp+=2;
 			System.out.println("ERRO");
 		}
 		
@@ -429,10 +430,22 @@ class ArvoreBinaria
 
 	public int getNumComp() {
 		return this.numComp;
-	}
+    }
+    
+    public void treeSort(No i) {
+        if(i != null) {
+            treeSort(i.esq);
+            System.out.println(i.jogador.getNome() + " ");
+            treeSort(i.dir);
+        }
+    }
+
+    public void treeSort() {
+        treeSort(raiz);
+    }
 }
 
-public class Questao01
+public class Questao05
 {	
     /**
      * isFim(String in)
@@ -461,7 +474,7 @@ public class Questao01
         String entrada[] = new String[500];
         int numEntrada = 0;
 				
-	FileWriter fw = new FileWriter("705657_arvoreBinaria.txt.txt");
+	FileWriter fw = new FileWriter("705657_treesort.txt");
 	BufferedWriter log = new BufferedWriter(fw);
 		
 	double inicio;	
@@ -476,6 +489,8 @@ public class Questao01
             Jogador[] jogador = new Jogador[numEntrada];
 			ArvoreBinaria ab = new ArvoreBinaria();
 
+            inicio = now(); // Tempo inicial
+
             boolean sucessRead = true;
             for(int i = 0; i < numEntrada; i++)
             {
@@ -487,28 +502,16 @@ public class Questao01
 			
 			// Segunda entrada
 			numEntrada = 0;
-			do{
+			do {
 				entrada[numEntrada] = MyIO.readLine();
 			} while (isFim(entrada[numEntrada++]) == false);
 			numEntrada--;
 
-			inicio = now(); // Tempo inicial
-			
-			// Pesquisar jogador
-			boolean resp;
-			for(int i = 0; i < numEntrada; i++)
-			{
-				resp = ab.pesquisar(entrada[i]);
-				if(resp) {
-					System.out.print("SIM\n");
-				} else {
-					System.out.print("NAO\n");
-				}
-			} 
+            ab.treeSort();
 
             fim = now(); // Tempo final da pesquisa
             
-           double total = ((fim-inicio)/1000.0);
+            double total = ((fim-inicio)/1000.0);
 			
 			log.write("705657\t"+total+"\t"+ab.getNumComp());			
                 

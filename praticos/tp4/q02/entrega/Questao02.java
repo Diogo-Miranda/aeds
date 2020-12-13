@@ -351,88 +351,198 @@ class Jogador{
     }
 }
 
-class No 
-{
-	public Jogador jogador;
-	public No esq, dir;
-	
-	public No(Jogador jogador) {
-		this(jogador, null, null);
-	}	
-
-	public No(Jogador jogador, No esq, No dir) {
-		this.jogador = jogador;
-		this.esq = esq;
-		this.dir = dir;
-	}
-}
-
-class ArvoreBinaria 
-{
-	private No raiz;
+class ArvoreBinaria {
+	public NoUm raiz;
 	private int numComp;
 
 	public ArvoreBinaria() {
 		raiz = null;
 		numComp = 0;
 	}
-
-	public boolean pesquisar(String nome) {
-		System.out.print(nome + " ");
-		System.out.print("raiz ");
-		return pesquisar(nome, raiz);
+	
+	/**
+	 * Metodo para pesquisar um elemento na arvore a partir de uma chave
+	 * @param String chave - chave de pesquisar
+	 * @return boolean - retorna true se o elemento for encontrado
+	*/
+	public boolean pesquisar(String chave) throws Exception {
+		System.out.print(chave + " ");
+		//System.out.print("raiz ");
+		return pesquisar(chave, raiz, "raiz ");
 	}
 
-	private boolean pesquisar(String nome, No i) {
-		boolean resp;
-		// Se estiver chegado em uma folha
+	/**
+	 * Metodo recursivo para pesquisar um valor em uma arvore binaria
+	 * @param String chave - chave a ser pesquisada
+	 * @param NoUm i - No atual a ser pesquisar
+	 * @param String mensage - direção para onde o no está indo
+	 * @return boolean resp - retorna true se o elemento for encontrado
+	*/ 
+	private boolean pesquisar(String chave, NoUm i, String mensagem) throws Exception {
+		boolean resp = false;
+		// Printar a direção
+		System.out.print(mensagem);
+		
 		numComp++;
-		if(i == null) {
-			resp = false;
-			numComp++;
-		} else if (nome.equals(i.jogador.getNome())) {
-			numComp++;
-			resp = true;
-		} else if (nome.compareTo(i.jogador.getNome()) < 0) {
-			numComp++;
-			System.out.print("esq ");
-			resp = pesquisar(nome, i.esq);
-		} else {
-			numComp++;
-			System.out.print("dir ");
-			resp = pesquisar(nome, i.dir);
-		} 
+		if(i != null) {
+			resp = pesquisarSegundaArvore(chave, i.noDois, "");
+			resp = resp || pesquisar(chave, i.esq, "esq ");	
+			resp = resp || pesquisar(chave, i.dir, "dir ");
+		}
 
 		return resp;
 	}
 
-	public void inserir(Jogador jogador) {
+	private boolean pesquisarSegundaArvore(String chave, NoDois i, String mensagem) throws Exception {
+		boolean resp = false;
+		// Printar a direção
+		System.out.print(mensagem);
+		
+		numComp++;
+		if(i != null) {
+			resp = chave.equals(i.elemento);
+			resp = resp || pesquisarSegundaArvore(chave, i.esq, "ESQ ");
+			resp = resp || pesquisarSegundaArvore(chave, i.dir, "DIR ");
+		}	
+
+		return resp;
+	}
+
+	public void inserir(Jogador jogador) throws Exception {
 		raiz = inserir(jogador, raiz);
 	}
 
-	private No inserir(Jogador jogador, No i) {
-		numComp++;
-		if (i == null) {
-			i = new No(jogador);
-			numComp++;
-		} else if (jogador.getNome().compareTo(i.jogador.getNome()) < 0) {
-			numComp++;
+	private NoUm inserir(Jogador jogador, NoUm i) throws Exception {
+		int chave = jogador.getAltura() % 15;
+			
+		if(i == null) {
+			i = new NoUm(chave);
+		} else if(chave == i.elemento) {
+			i.noDois = inserirSegundaArvore(jogador, i.noDois);
+		} else if(chave < i.elemento) {
 			i.esq = inserir(jogador, i.esq);
-		} else if (jogador.getNome().compareTo(i.jogador.getNome()) > 0) {
+		} else if(chave > i.elemento) {
 			i.dir = inserir(jogador, i.dir);
-		} else {
-			System.out.println("ERRO");
 		}
-		
+
 		return i;
 	}
 
+	private NoDois inserirSegundaArvore(Jogador jogador, NoDois i) throws Exception {
+		if(i == null) {
+			i = new NoDois(jogador.getNome());
+		} else if(jogador.getNome().compareTo(i.elemento) < 0) {
+			i.esq = inserirSegundaArvore(jogador, i.esq);
+		} else if(jogador.getNome().compareTo(i.elemento) > 0) {
+			i.dir = inserirSegundaArvore(jogador, i.dir);
+		} else {
+			throw new Exception ("Erro ao inserir na segunda arvore");
+		}
+
+		return i;
+	}
+
+	/** 
+	 * Método para inserir um elemento utilizando seu pai como referencia
+	 * @param int elemento - elemento a ser inserido
+	*/
+	public void inserir(int elemento) throws Exception {
+		if(raiz == null) {
+			raiz = new NoUm(elemento);
+		} else if (elemento < raiz.elemento) {
+			inserir(elemento, raiz.esq, raiz);
+		} else if (elemento > raiz.elemento) {
+			inserir(elemento, raiz.dir, raiz);
+		} else {
+			throw new Exception("Erro ao inserir!");
+		}
+	}
+
+	/**
+	 * Metodo para inserir um elemento na arvore binaria utilizando seu pai como referencia
+	 * @param int elemento - elemento a ser inserido
+	 * @param NoUm i - no atual a ser comparado
+	 * @param NoUm pai - no pai utilizado como referencia
+	*/
+	private void inserir(int elemento, NoUm i, NoUm pai) throws Exception {
+		if(i == null) {
+			if(elemento < pai.elemento) {
+				pai.esq = new NoUm(elemento);
+			} else {
+				pai.dir = new NoUm(elemento);
+			}
+		} else if (elemento < i.elemento) {
+			inserir(elemento, i.esq, i);
+		} else if (elemento > i.elemento) {
+			inserir(elemento, i.dir, i);
+		} else {
+			throw new Exception("Erro ao inserir!");
+		}
+	}
+	
+	public void caminharPre() {
+		caminharPre(raiz);
+	}
+
+	private void caminharPre(NoUm i) {
+		if(i != null) {
+			System.out.println(i.elemento + " : ");
+			System.out.print("[ ");
+			caminharPreSegunda(i.noDois);
+			System.out.print("]\n");
+			caminharPre(i.esq);
+			caminharPre(i.dir);
+		}
+	}
+
+	private void caminharPreSegunda(NoDois i) {
+		if(i != null) {
+			System.out.print(i.elemento + "; ");
+			caminharPreSegunda(i.esq);
+			caminharPreSegunda(i.dir);
+		}
+	}
+	
 	public int getNumComp() {
 		return this.numComp;
 	}
 }
 
-public class Questao01
+class NoDois {
+	public String elemento;
+	public NoDois esq;
+	public NoDois dir;
+		
+	public NoDois() {
+		this("vazio");
+	}
+
+	public NoDois(String elemento) {
+		this.elemento = elemento;
+		this.esq = null;
+		this.dir = null;
+	}
+}
+
+class NoUm {
+	int elemento;
+	public NoUm esq;
+	public NoUm dir;
+	public NoDois noDois;
+
+	public NoUm() {
+		this(0);
+	}
+
+	public NoUm(int elemento) {
+		esq = null;
+		dir = null;
+		this.elemento = elemento;
+		noDois = null;
+	}
+}
+
+public class Questao02
 {	
     /**
      * isFim(String in)
@@ -454,18 +564,35 @@ public class Questao01
     {
 		return new Date().getTime();
     }
-    
-		
-    public static void main (String[] args) throws IOException
+	
+	public static void insercaoInicial(ArvoreBinaria ab) throws Exception{
+        ab.inserir(7);
+        ab.inserir(3);
+        ab.inserir(11);
+        ab.inserir(1);
+        ab.inserir(5);
+        ab.inserir(9);
+        ab.inserir(12);
+        ab.inserir(0);
+        ab.inserir(2);
+        ab.inserir(4);
+        ab.inserir(6);
+        ab.inserir(8);
+        ab.inserir(10);
+        ab.inserir(13);
+        ab.inserir(14);
+	}
+
+    public static void main (String[] args) throws IOException, Exception
     {
         String entrada[] = new String[500];
         int numEntrada = 0;
 				
-	FileWriter fw = new FileWriter("705657_arvoreBinaria.txt.txt");
-	BufferedWriter log = new BufferedWriter(fw);
+		FileWriter fw = new FileWriter("705657_arvoreArvore.txt");
+		BufferedWriter log = new BufferedWriter(fw);
 		
-	double inicio;	
-	double fim;
+		double inicio;	
+		double fim;
         try {
 			// Leitura do id dos jogadores
             do {
@@ -475,8 +602,9 @@ public class Questao01
             
             Jogador[] jogador = new Jogador[numEntrada];
 			ArvoreBinaria ab = new ArvoreBinaria();
+			insercaoInicial(ab);
+			//ab.caminharPre();
 
-            boolean sucessRead = true;
             for(int i = 0; i < numEntrada; i++)
             {
                 jogador[i] = new Jogador();
@@ -485,6 +613,8 @@ public class Questao01
 				ab.inserir(jogador[i]);
 			}
 			
+			//ab.caminharPre();
+
 			// Segunda entrada
 			numEntrada = 0;
 			do{
@@ -504,7 +634,7 @@ public class Questao01
 				} else {
 					System.out.print("NAO\n");
 				}
-			} 
+			}
 
             fim = now(); // Tempo final da pesquisa
             
@@ -512,7 +642,7 @@ public class Questao01
 			
 			log.write("705657\t"+total+"\t"+ab.getNumComp());			
                 
-            log.close();			
+			log.close();			
 
         } catch (IOException e) {
                 System.out.println("##### ERRO : "+e.getMessage());

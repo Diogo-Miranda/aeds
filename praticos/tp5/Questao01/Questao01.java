@@ -351,172 +351,149 @@ class Jogador{
     }
 }
 
-class No 
-{
-	public Jogador jogador;
-	public No esq, dir;
-	
-	public No(Jogador jogador) {
-		this(jogador, null, null);
-	}	
+class Hash {
+   Jogador tabela[];
+   int m1, m2, m, reserva;
+   private int numComp;
 
-	public No(Jogador jogador, No esq, No dir) {
-		this.jogador = jogador;
-		this.esq = esq;
-		this.dir = dir;
-	}
+   public Hash (){
+      this(13, 7);
+   }
+ 
+   public Hash (int m1, int m2){
+      this.m1 = m1;
+      this.m2 =  m2;
+      this.m = m1 + m2;
+      this.reserva  = 0;
+      this.numComp = 0;
+      this.tabela = new Jogador[this.m];
+   }
+ 
+   public int h(Jogador elemento){
+      return elemento.getAltura() % m1;
+   }
+ 
+   public boolean inserir (Jogador elemento){
+      boolean resp = false;
+      
+      if(elemento != null){
+         int pos = h(elemento);
+         if(tabela[pos] == null){
+            tabela[pos] = elemento;
+            resp = true;
+         } else if (reserva < m2){
+            tabela[m1 + reserva] = elemento;
+            reserva++;
+            resp = true;
+         }
+      }
+ 
+      return resp;
+   }
+ 
+   public boolean pesquisar (String nome){
+      boolean resp = false;
+      
+      int i = 0;
+      while(!resp && i < (this.m1 + this.reserva)) {
+         if(tabela[i] != null) {
+            numComp++;
+            if(tabela[i].getNome().equals(nome)) {
+               resp = true;
+            }
+         }
+         i++;
+      }
+      
+      return resp;
+   }
+
+   public int getNumComp() {
+      return this.numComp;
+   }
 }
 
-class ArvoreBinaria 
-{
-	private No raiz;
-	private int numComp;
-
-	public ArvoreBinaria() {
-		raiz = null;
-		numComp = 0;
-	}
-
-	public boolean pesquisar(String nome) {
-		System.out.print(nome + " ");
-		System.out.print("raiz ");
-		return pesquisar(nome, raiz);
-	}
-
-	private boolean pesquisar(String nome, No i) {
-		boolean resp;
-		// Se estiver chegado em uma folha
-		numComp++;
-		if(i == null) {
-			resp = false;
-			numComp++;
-		} else if (nome.equals(i.jogador.getNome())) {
-			numComp++;
-			resp = true;
-		} else if (nome.compareTo(i.jogador.getNome()) < 0) {
-			numComp++;
-			System.out.print("esq ");
-			resp = pesquisar(nome, i.esq);
-		} else {
-			numComp++;
-			System.out.print("dir ");
-			resp = pesquisar(nome, i.dir);
-		} 
-
-		return resp;
-	}
-
-	public void inserir(Jogador jogador) {
-		raiz = inserir(jogador, raiz);
-	}
-
-	private No inserir(Jogador jogador, No i) {
-		numComp++;
-		if (i == null) {
-			i = new No(jogador);
-			numComp++;
-		} else if (jogador.getNome().compareTo(i.jogador.getNome()) < 0) {
-			numComp++;
-			i.esq = inserir(jogador, i.esq);
-		} else if (jogador.getNome().compareTo(i.jogador.getNome()) > 0) {
-			i.dir = inserir(jogador, i.dir);
-		} else {
-			System.out.println("ERRO");
-		}
-		
-		return i;
-	}
-
-	public int getNumComp() {
-		return this.numComp;
-	}
-}
-
-public class Questao01
-{	
-    /**
-     * isFim(String in)
-     * Determinar o fim de uma leitura
-     * @param String in - String de entrada
-     * @return boolean - retorna se a entrada é igual a "FIM"
-     */
-    public static boolean isFim(String in)
-    {
-        return (in.length() >= 3 && in.charAt(0) == 'F' && in.charAt(1) == 'I' && in.charAt(2) == 'M');
-    }		
+public class Questao01 {
+   /**
+   * isFim(String in)
+   * Determinar o fim de uma leitura
+   * @param String in - String de entrada
+   * @return boolean - retorna se a entrada é igual a "FIM"
+   */
+   public static boolean isFim(String in)
+   {
+      return (in.length() >= 3 && in.charAt(0) == 'F' && in.charAt(1) == 'I' && in.charAt(2) == 'M');
+   }		
 	
-    /**
-    * new()
-    * retorna o tempo atual
-    * @return time
-    */	
-    public static long now()
-    {
-		return new Date().getTime();
-    }
-    
-		
-    public static void main (String[] args) throws IOException
-    {
-        String entrada[] = new String[500];
-        int numEntrada = 0;
-				
-	FileWriter fw = new FileWriter("705657_arvoreBinaria.txt.txt");
-	BufferedWriter log = new BufferedWriter(fw);
-		
-	double inicio;	
-	double fim;
-        try {
-			// Leitura do id dos jogadores
-            do {
-                entrada[numEntrada] = MyIO.readLine();
-            } while (isFim(entrada[numEntrada++]) == false);
-            numEntrada--;
-            
-            Jogador[] jogador = new Jogador[numEntrada];
-			ArvoreBinaria ab = new ArvoreBinaria();
+   /**
+   * now()
+   * retorna o tempo atual
+   * @return time
+   */	
+   public static long now()
+   {
+	   return new Date().getTime();
+   }
 
-            boolean sucessRead = true;
-            for(int i = 0; i < numEntrada; i++)
-            {
-                jogador[i] = new Jogador();
-                if(entrada[i].equals("223")) entrada[i] = "222";
-                jogador[i].ler(entrada[i]);
-				ab.inserir(jogador[i]);
-			}
-			
-			// Segunda entrada
-			numEntrada = 0;
-			do{
-				entrada[numEntrada] = MyIO.readLine();
-			} while (isFim(entrada[numEntrada++]) == false);
-			numEntrada--;
+   public static void main(String[] args) throws Exception {
+      String entrada[] = new String[500];
+      int numEntrada = 0;
+          
+      FileWriter fw = new FileWriter("705657_hashReserva.txt");
+      BufferedWriter log = new BufferedWriter(fw);
+         
+      double inicio;	
+      double fim;
 
-			inicio = now(); // Tempo inicial
-			
-			// Pesquisar jogador
-			boolean resp;
-			for(int i = 0; i < numEntrada; i++)
-			{
-				resp = ab.pesquisar(entrada[i]);
-				if(resp) {
-					System.out.print("SIM\n");
-				} else {
-					System.out.print("NAO\n");
-				}
-			} 
+      try {
+       // Leitura do id dos jogadores
+         do {
+            entrada[numEntrada] = MyIO.readLine();
+         } while (isFim(entrada[numEntrada++]) == false);
+         numEntrada--;
+          
+         Jogador[] jogador = new Jogador[numEntrada];
+         Hash hash = new Hash(21, 9);
 
-            fim = now(); // Tempo final da pesquisa
-            
-           double total = ((fim-inicio)/1000.0);
-			
-			log.write("705657\t"+total+"\t"+ab.getNumComp());			
-                
-            log.close();			
+         boolean sucessRead = true;
+         for(int i = 0; i < numEntrada; i++)
+         {
+            jogador[i] = new Jogador();
+            if(entrada[i].equals("223")) entrada[i] = "222";
+            jogador[i].ler(entrada[i]);
+            hash.inserir(jogador[i]);
+         }
+       
+         // Segunda entrada
+         numEntrada = 0;
+         do{
+            entrada[numEntrada] = MyIO.readLine();
+         } while (isFim(entrada[numEntrada++]) == false);
+         numEntrada--;
 
-        } catch (IOException e) {
-                System.out.println("##### ERRO : "+e.getMessage());
-                e.printStackTrace();   
-        }
-    }
+         inicio = now(); // Tempo inicial
+
+         for(int i = 0; i < numEntrada; i++) {
+            System.out.print(entrada[i] + " ");
+            if(hash.pesquisar(entrada[i])) {
+               System.out.print("SIM\n");
+            } else {
+               System.out.print("NAO\n");
+            }
+
+         }
+
+         fim = now(); // Tempo final da pesquisa
+          
+         double total = ((fim-inicio)/1000.0);
+       
+         log.write("705657\t"+total+"\t"+hash.getNumComp());			
+              
+         log.close();		
+
+      } catch (IOException e) {
+         System.out.println("##### ERRO : "+e.getMessage());
+         e.printStackTrace();   
+      }
+  }
 }
