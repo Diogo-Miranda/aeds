@@ -351,70 +351,277 @@ class Jogador{
     }
 }
 
-class Hash {
-    Jogador tabela[];
-    int m;
-    int numComp;
+class No {
+    No esq;
+    No dir;
+    Jogador elemento; 
 
-    public Hash (){
-       this(25);
-    }
- 
-    public Hash (int m){
-       this.m = m;
-       this.tabela = new Jogador[this.m];
-    }
- 
-    public int h(Jogador elemento){
-       return elemento.getAltura() % m;
-    }
- 
-    public int reh(Jogador elemento){
-       return  (elemento.getAltura()+1) % m;
-    }
- 
-    public boolean inserir (Jogador elemento){
-       boolean resp = false;
- 
-       if(elemento != null){
-          int pos = h(elemento);
- 
-          if(tabela[pos] == null){
-             tabela[pos] = elemento;
-             resp = true;
-          } else{
-             pos = reh(elemento);
- 
-             if(tabela[pos] == null){
-                tabela[pos] = elemento;
-                resp = true;
-             }
-          }
-       }
- 
-       return resp;
-    }
- 
-    public boolean pesquisar (String nome){
-       boolean resp = false;
-        
-       for(int i = 0; !resp && i < this.m; i++) {
-            if(tabela[i] == null) {
-                resp = false;
-            } else if (tabela[i].getNome().contains(nome)) {
-                resp = true;
-            }
-       }
-
-       return resp;
-    }
- 
-    public int getNumComp() {
-        return this.numComp;
+    public No (Jogador elemento) {
+        this.esq = null;
+        this.dir = null;
+        this.elemento = elemento;
     }
 }
 
-public class Questao02 {
+class ArvoreBinaria {
+    No raiz; 
+
+    public static int NUM_COMP = 0;
+
+    public ArvoreBinaria() {
+        raiz = null;
+    }
+
+    public void inserir(Jogador elemento) {
+        this.raiz = inserir(elemento, raiz);
+    }
+
+    public No inserir(Jogador elemento, No i) {
+        
+        if(i == null) {
+            i = new No(elemento);
+        } else if (elemento.getNome().compareTo(i.elemento.getNome()) < 0) {
+            i.esq = inserir(elemento, i.esq);
+        } else if (elemento.getNome().compareTo(i.elemento.getNome()) > 0) {
+            i.dir = inserir(elemento, i.dir);
+        } else {
+            System.out.println("Erro ao inserir");
+        }
+
+        return i;
+    }
+
+    public boolean pesquisar(String nome) {
+        System.out.print("raiz ");
+        return pesquisar(nome, raiz);
+    } 
+
+    public boolean pesquisar(String nome, No i) { 
+        boolean resp = false;
+        
+        NUM_COMP++;
+        if(i == null) {
+            resp = false;
+        } else if (nome.equals(i.elemento.getNome())) {
+            resp = true;
+        } else if (nome.compareTo(i.elemento.getNome()) < 0) {
+            NUM_COMP++;
+            System.out.print("esq ");
+            resp = pesquisar(nome, i.esq);
+        } else if (nome.compareTo(i.elemento.getNome()) > 0) {
+            NUM_COMP+=2;
+            System.out.print("dir ");
+            resp = pesquisar(nome, i.dir);
+        }
+
+        return resp; 
+    }
+
+}
+
+/**
+ * Celula (pilha, lista e fila dinamica)
+ * @author Max do Val Machado
+ * @version 2 01/2015
+ */
+class Celula {
+	public Jogador elemento; // Elemento inserido na celula.
+	public Celula prox; // Aponta a celula prox.
+
+
+	/**
+	 * Construtor da classe.
+	 */
+	public Celula() {
+		this(null);
+	}
+
+	/**
+	 * Construtor da classe.
+	 * @param elemento int inserido na celula.
+	 */
+	public Celula(Jogador elemento) {
+      this.elemento = elemento;
+      this.prox = null;
+	}
+}
+
+/**
+ * Lista dinamica
+ * @author Max do Val Machado
+ * @version 2 01/2015
+ */
+class Lista {
+	private Celula primeiro;
+    private Celula ultimo;
+    
+    // Globais
+    public static int NUM_COMP = 0;
+
+	/**
+	 * Construtor da classe que cria uma lista sem elementos (somente no cabeca).
+	 */
+	public Lista() {
+		primeiro = new Celula();
+		ultimo = primeiro;
+	}
+
+	/**
+	 * Insere um elemento na ultima posicao da lista.
+    * @param x int elemento a ser inserido.
+	 */
+	public void inserirFim(Jogador x) {
+		ultimo.prox = new Celula(x);
+		ultimo = ultimo.prox;
+	}
+
+	/**
+	 * Mostra os elementos da lista separados por espacos.
+	 */
+	public void mostrar() {
+		System.out.print("[ ");
+		for (Celula i = primeiro.prox; i != null; i = i.prox) {
+			i.elemento.imprimir();
+		}
+		System.out.println("] ");
+	}
+
+	/**
+	 * Procura um elemento e retorna se ele existe.
+	 * @param x Elemento a pesquisar.
+	 * @return <code>true</code> se o elemento existir,
+	 * <code>false</code> em caso contrario.
+	 */
+	public boolean pesquisar(String nome) {
+		boolean resp = false;
+		for (Celula i = primeiro.prox; i != null; i = i.prox) {
+            NUM_COMP++;
+            if(i.elemento.getNome().contains(nome)){
+                resp = true;
+                i = ultimo;
+            }
+		}
+		return resp;
+	}
+}
+
+class ReHash {
+    Jogador[] tabela;
+    int tamTab;
+
+    public static int NUM_COMP = 0;
+
+    public ReHash(int tamTab) {
+        this.tamTab = tamTab;
+        this.tabela = new Jogador[tamTab];
+    }
+
+    public int h(Jogador jogador) {
+        return (jogador.getAltura() % tamTab);
+    }
+
+    public int h2(Jogador jogador) {
+        return ( 1 + (jogador.getAltura() % tamTab));
+    }
+
+    public boolean inserir(Jogador jogador) {
+        boolean resp = false;
+        int pos = h(jogador);
+
+        if(tabela[pos] == null) {
+            tabela[pos] = jogador;
+            resp = false;
+        } else {
+            // reHash
+            pos = h2(jogador);
+
+            if(tabela[pos] == null) {
+                tabela[pos] = jogador;
+                resp = true;
+            }
+        }
+
+        return resp;
+    }
+
+    public boolean pesquisar(String nome) {
+        boolean achou = false;
+
+        for(int i = 0; !achou && i < this.tamTab; i++) {
+            NUM_COMP++;
+            if(tabela[i] == null) {
+                achou = false;
+            } else if(tabela[i].getNome().contains(nome)) {
+                achou = true;
+            }
+        }
+
+        return achou;
+    }
+}
+
+class Hash {
+    Lista listaSimples;
+    ArvoreBinaria arvoreBinaria;
+    ReHash T2;
+    Jogador[] tabela;
+    int tamTab;
+
+    public static int NUM_COMP = 0;
+
+    public Hash(int tamTab) {
+        this.tamTab = tamTab;
+        this.tabela = new Jogador[tamTab];
+        listaSimples = new Lista();
+        arvoreBinaria = new ArvoreBinaria();
+        this.T2 = new ReHash(9);
+    } 
+
+    public int h(Jogador jogador) {
+        return jogador.getAltura() % this.tamTab;
+    }
+
+    // Inserir na área reserva
+    public int h2(Jogador jogador) {
+        return (jogador.getAltura() % 3);
+    }
+
+    public void inserir(Jogador jogador) {
+        int pos = h(jogador);
+        if(tabela[pos] == null) {
+            tabela[pos] = jogador;
+        } else {
+            pos = h2(jogador);
+
+            if(pos == 0) {
+                T2.inserir(jogador);
+            } else if (pos == 1) {
+                listaSimples.inserirFim(jogador);
+            } else if (pos == 2) {
+                arvoreBinaria.inserir(jogador);
+            }
+        }
+    }
+
+    public boolean pesquisar(String nome) {
+        boolean resp = false;
+
+        for (int i = 0; !resp && i < this.tamTab && tabela[i] != null ; i++) {
+            NUM_COMP++;
+            if(tabela[i].getNome().contains(nome)) {
+                resp = true;
+            }
+        }
+
+        if(!resp) {
+            resp = this.T2.pesquisar(nome) || this.listaSimples.pesquisar(nome) || this.arvoreBinaria.pesquisar(nome); 
+        }
+
+        return resp;
+    }
+}   
+
+public class Questao04 {
    /**
    * isFim(String in)
    * Determinar o fim de uma leitura
@@ -440,7 +647,7 @@ public class Questao02 {
         String entrada[] = new String[500];
         int numEntrada = 0;
             
-        FileWriter fw = new FileWriter("705657_hashRehash.txt");
+        FileWriter fw = new FileWriter("705657_doidao.txt");
         BufferedWriter log = new BufferedWriter(fw);
             
         double inicio;	
@@ -454,7 +661,7 @@ public class Questao02 {
             numEntrada--;
             
             Jogador[] jogador = new Jogador[numEntrada];
-            Hash hash = new Hash(21);
+            Hash hash = new Hash(11);
 
             boolean sucessRead = true;
             for(int i = 0; i < numEntrada; i++)
@@ -487,7 +694,8 @@ public class Questao02 {
             
             double total = ((fim-inicio)/1000.0);
         
-            log.write("705657\t"+total+"\t"+hash.getNumComp());			
+            int numComp = Lista.NUM_COMP + ArvoreBinaria.NUM_COMP + ReHash.NUM_COMP + Hash.NUM_COMP;
+            log.write("705657\t"+total+"\t"+numComp);			
                 
             log.close();		
 
